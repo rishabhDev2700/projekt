@@ -25,3 +25,5 @@ export async function register(form){
     await connectMongo()
     const id = await User.create(data)
 }
+
+

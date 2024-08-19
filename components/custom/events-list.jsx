@@ -8,7 +8,7 @@ export default function EventsList() {
     const [date, setDate] = useState(new Date())
     console.log(date)
     return (
-        <Card className="m-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20 lg:col-span-2">
+        <Card className="m-2 p-2 dark:bg-neutral-900 shadow-md shadow-black/20 lg:col-span-2">
             <CardHeader className="text-2xl font-semibold text-center"><span>Events</span></CardHeader>
             <Separator />
             <CardContent className="mt-4 font-light w-full lg:grid lg:grid-cols-3">

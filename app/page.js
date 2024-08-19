@@ -10,8 +10,7 @@ export default function Home() {
   return (
     <main className="grid lg:grid-cols-2 h-screen items-center lg:place-content-center lg:place-self-auto bg-gray-200">
       <div className="rounded-lg border m-4 px-8 pb-12 lg:m-12 bg-white shadow-lg shadow-black/20">
-
-        <h2 className="text-center font-light pt-12 text-2xl lg:text-5xl uppercase">Master</h2>
+        <h2 className="text-center font-light pt-12 text-2xl lg:text-5xl uppercase">Projekt</h2>
         <Tabs defaultValue="login" className="flex flex-col ">
           <TabsList className="mx-auto bg-black mt-8">
             <TabsTrigger value="login">Login</TabsTrigger>

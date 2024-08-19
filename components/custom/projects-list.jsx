@@ -1,87 +1,24 @@
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Button } from '../ui/button'
 import Link from 'next/link'
-export default function ProjectsList() {
+import ProjectCard from './project-card'
+export default function ProjectsList({title,children}) {
     return (
-        <Card className="m-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20">
-                <CardHeader className="text-2xl font-semibold"><div>My Projects</div></CardHeader>
-                <Separator />
+        <Card className="lg:w-2/3 lg:mx-auto lg:my-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20">
+            <div className="text-2xl font-semibold py-4 px-4 lg:px-12 flex justify-between">
+                <div className='inline-block'>{title}</div> {children}
+            </div>
+            <Separator />
             <CardContent className="mt-4 font-light">
-                <ScrollArea className="max-h-64">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="font-bold text-neutral-700 dark:text-white">
-                                    Project
-                                </TableHead>
-                                <TableHead className="font-bold text-neutral-700 dark:text-white">
-                                    Role
-                                </TableHead>
-                                <TableHead className="font-bold text-neutral-700 dark:text-white">
-                                    Deadline
-                                </TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>  
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>  
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-
+                <ScrollArea className="min-h-[65vh] grid lg:grid-col-4 place-content-center content-start">
+                    <ProjectCard />
+                    <ProjectCard />
+                    <ProjectCard />
+                    <ProjectCard />
                 </ScrollArea>
             </CardContent>
-            <CardFooter><Button><Link href="/projects">All Projects</Link></Button></CardFooter>
         </Card>
     )
 }

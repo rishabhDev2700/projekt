@@ -1,11 +1,12 @@
 "use client"
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { motion,AnimatePresence } from 'framer-motion'
+import FormContext from './form-context'
 
 
 const users = [
@@ -17,7 +18,8 @@ const users = [
 ];
 
 
-export default function TeamSelector({data,setData}) {
+export default function TeamSelector() {
+    const {data,setData} = useContext(FormContext)
     const [team, setTeam] = useState([])
     const [result, setResult] = useState([])
     const [email,setEmail] = useState('')
@@ -28,12 +30,15 @@ export default function TeamSelector({data,setData}) {
         setResult(users)
     }
     const removeUserFromTeam = (email) => {
-        setTeam((prevTeam) => prevTeam.filter((user) => user.email !== email))
+        let updatedTeam = team.filter((user)=>user.email!==email)
+        setTeam(updatedTeam)
     }
     const addUserToTeam = (user) => {
-        setTeam((prevTeam) => [...prevTeam, user])
+        setTeam([...team, user])
+        setData({...data,team:team})
         setResult([])  // Clear the results after adding the user
     }
+    console.log("Team:",team)
     return (
         <AnimatePresence>
         <motion.div animate={{opacity:[0,1]}} exit={{opacity:0}} transition={{duration:1}} className='p-2 lg:p-8 flex flex-col items-center'>
