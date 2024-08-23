@@ -10,7 +10,7 @@ export default async function Page({ params }) {
     console.log(user)
     const { project, tasks } = await fetchSingleProject(user.userID, params.projectID)
     return (
-        <Card className="m-2 p-2 w-full lg:w-2/3 mx-auto shadow-md shadow-black/20 dark:bg-neutral-900">
+        <Card className="m-2 p-2 w-full lg:w-1/2 mx-auto shadow-md shadow-black/20 dark:bg-neutral-900">
             <CardHeader className=" text-3xl font-bold">{project.title}</CardHeader>
             <CardContent >
                 <div className="grid lg:grid-cols-2 lg:gap-12">
@@ -43,13 +43,16 @@ export default async function Page({ params }) {
 
                     <Card className="my-4">
                         <div className="flex justify-between items-center p-4">
-                            <CardTitle>Team</CardTitle>
+                            <CardTitle>Tasks</CardTitle>
                             <Button className="bg-indigo-400 hover:bg-indigo-800" size="icon"><Link href="/dashboard/projects/432432/tasks"><Pencil1Icon /></Link></Button>
-                        </div>{
-                            tasks.map((t) => {
-                                return <Card key={i._id} className="p-2 my-1 hover:bg-black/10">{t.title}</Card>
-                            })
-                        }
+                        </div>
+                        <div className="px-4">
+                            {
+                                tasks.map((t) => {
+                                    return <Card key={t._id} className="p-2 my-1 hover:bg-black/10">{t.title}</Card>
+                                })
+                            }
+                        </div>
 
                     </Card>
 
