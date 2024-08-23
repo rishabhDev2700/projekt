@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect, useContext } from 'react'
 import FormContext from './form-context'
 import { useToast } from '@/components/ui/use-toast'
+import { Loader2 } from 'lucide-react'
 export default function ProjectFormContainer() {
     const { data, setData } = useContext(FormContext)
     const [loading, setLoading] = useState(false)
@@ -56,7 +57,7 @@ export default function ProjectFormContainer() {
             <div className='md:w-1/3 mx-auto flex justify-between py-8 px-2'>
                 <Button disabled={formIndex === 0} onClick={() => setFormIndex(formIndex - 1)}>Previous</Button>
                 {formIndex === 2 ?
-                    <Button onClick={() => postData()} className="bg-blue-500">Create Project</Button> :
+                    <Button onClick={() => postData()} disabled={loading} className="bg-blue-500">{loading ? <Loader2 className="animate-spin" /> : "Create Project"}</Button> :
                     <Button onClick={() => setFormIndex(formIndex + 1)}>Next</Button>
                 }
             </div>
