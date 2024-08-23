@@ -1,6 +1,6 @@
 "use client"
 import { useState, useContext, useEffect } from 'react'
-import { Card, CardTitle, CardContent, CardHeader, CardDescription } from "@/components/ui/card"
+import { Card, CardTitle, CardContent, CardHeader, CardDescription, CardFooter } from "@/components/ui/card"
 import { Separator } from '../../ui/separator'
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader, DialogTrigger } from '../../ui/dialog'
 import { Button } from "@/components/ui/button"
@@ -10,6 +10,8 @@ import { Textarea } from '../../ui/textarea'
 import { Plus } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import FormContext from './form-context'
+import { TrashIcon } from '@radix-ui/react-icons'
+import { useToast } from '@/components/ui/use-toast'
 export default function TaskCreator() {
   const { data, setData } = useContext(FormContext)
   const [tasks, setTasks] = useState(data.tasks)
@@ -17,8 +19,20 @@ export default function TaskCreator() {
   const [description, setDescription] = useState("")
   const [deadline, setDeadline] = useState("")
   const [note, setNote] = useState('')
+  const { toast } = useToast()
   const addTask = () => {
     setTasks([...tasks, { title, description, deadline, note }])
+    setTitle('')
+    setDescription('')
+    setDeadline('')
+    setNote('')
+    toast({
+      title: "Saved Successfully",
+      description: "Task created",
+    })
+  }
+  const removeTask = (title) => {
+    setTasks(tasks.filter((i) => i.title !== title))
   }
   useEffect(() => {
     setData({ ...data, tasks: [...tasks] })
@@ -39,6 +53,7 @@ export default function TaskCreator() {
                 <CardTitle className="m-2">{t.title}</CardTitle>
                 <CardContent>
                   <CardDescription>{t.description}</CardDescription>
+                  <Button onClick={() => removeTask(t.title)}><TrashIcon /></Button>
                 </CardContent>
               </Card>) : <div className='text-center'>Add Tasks to Project</div>}
             </CardContent>
@@ -61,6 +76,7 @@ export default function TaskCreator() {
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Title of the task"
                   className="col-span-3"
+                  value={title}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -72,6 +88,7 @@ export default function TaskCreator() {
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Description of the task"
                   className="col-span-3"
+                  value={description}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -83,6 +100,7 @@ export default function TaskCreator() {
                   onChange={(e) => setDeadline(e.target.value)}
                   type="datetime-local"
                   className="col-span-3"
+                  value={deadline}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -94,6 +112,7 @@ export default function TaskCreator() {
                   onChange={(e) => setNote(e.target.value)}
                   placeholder="Extra information"
                   className="col-span-3"
+                  value={note}
                 />
               </div>
               <Button onClick={() => addTask()}><Plus /> Add</Button>

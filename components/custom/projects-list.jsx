@@ -8,15 +8,12 @@ export default function ProjectsList({title,children}) {
     return (
         <Card className="lg:w-2/3 lg:mx-auto lg:my-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20">
             <div className="text-2xl font-semibold py-4 px-4 lg:px-12 flex justify-between">
-                <div className='inline-block'>{title}</div> {children}
+                <div className='inline-block'>{title}</div> 
             </div>
             <Separator />
             <CardContent className="mt-4 font-light">
-                <ScrollArea className="min-h-[65vh] grid lg:grid-col-4 place-content-center content-start">
-                    <ProjectCard />
-                    <ProjectCard />
-                    <ProjectCard />
-                    <ProjectCard />
+                <ScrollArea className="min-h-[65vh] grid lg:grid-col-4 place-items-center content-start">
+                    {children}
                 </ScrollArea>
             </CardContent>
         </Card>

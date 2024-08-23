@@ -3,7 +3,9 @@ import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { ModeToggle } from '../theme-toggler'
 import { Separator } from '../ui/separator'
+import { Button } from '../ui/button'
 import { getSession } from '@/lib/session'
+import { logout } from '@/app/actions'
 export default async function NavBar() {
   const user = await getSession()
   return (
@@ -21,7 +23,9 @@ export default async function NavBar() {
             <Link className='px-4 py-2 my-2 border-b-2 border-transparent hover:border-black/50 duration-200' href="/dashboard/myprojects">My Projects</Link>
             <Link className='px-4 py-2 my-2 border-b-2 border-transparent hover:border-black/50 duration-200' href="/dashboard/chat">Chat</Link>
             <Separator />
-            <Link className='px-4 py-2 my-2 border-b-2 border-transparent bg-red-400 text-white rounded-md hover:border-black/50 duration-200' href="/dashboard/logout">Logout</Link>
+            <form action={logout}>
+              <Button type="submit" className='px-4 py-2 my-2 border-b-2 border-transparent bg-red-400 text-white rounded-md hover:border-black/50 duration-200' href="/dashboard/logout">Logout</Button>
+            </form>
           </nav>
         </SheetContent>
       </Sheet>
