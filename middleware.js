@@ -1,6 +1,6 @@
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
-import { updateSession } from "./lib/session"
+import { decrypt, updateSession } from "./lib/session"
 
 const protectedPath = "/dashboard"
 export const config = {
@@ -25,9 +25,11 @@ export async function middleware(request) {
     if (!isProtected) {
         return NextResponse.next()
     }
-    const session = cookies().get('session')?.value
+    let cookie = cookies().get('session')?.value
+    let session = await decrypt(cookie)
     if (session) {
-        return await updateSession(session)
+        console.log("**Session updated**")
+        return await updateSession(cookie)
     } else {
         console.log("Redirecting to the sign in page")
         return NextResponse.redirect(new URL('/', request.nextUrl))

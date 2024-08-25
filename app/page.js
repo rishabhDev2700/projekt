@@ -1,4 +1,3 @@
-import { getSession } from "@/lib/session";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import LoginForm from "@/components/custom/login-form";
@@ -6,7 +5,6 @@ import RegistrationForm from "@/components/custom/registration-form";
 import bg from "@/assets/dark.svg"
 
 export default function Home() {
-  const session = getSession()
   return (
     <main className="grid lg:grid-cols-2 h-screen items-center lg:place-content-center lg:place-self-auto bg-gray-200">
       <div className="rounded-lg border m-4 px-8 pb-12 lg:m-12 bg-white shadow-lg shadow-black/20">

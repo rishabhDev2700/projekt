@@ -3,8 +3,10 @@ import { fetchSingleProject } from "@/lib/getData"
 import { getSession } from "@/lib/session"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Pencil1Icon } from "@radix-ui/react-icons"
+import { Pencil1Icon, Pencil2Icon } from "@radix-ui/react-icons"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import TaskOverview from "@/components/custom/task-overview"
+import { status } from "@/lib/constants"
 export default async function Page({ params }) {
     let user = await getSession()
     console.log(user)
@@ -34,10 +36,17 @@ export default async function Page({ params }) {
                             <Button className="bg-indigo-400 hover:bg-indigo-800" size="icon"><Link href="/dashboard/projects/432432/team"><Pencil1Icon /></Link></Button>
                         </div>
                         <ScrollArea>
-                            <Card className="p-2 my-1 hover:bg-black/10">Member-1</Card>
-                            <Card className="p-2 my-1 hover:bg-black/10">Member-2</Card>
-                            <Card className="p-2 my-1 hover:bg-black/10">Member-3</Card>
-                            <Card className="p-2 my-1 hover:bg-black/10">Member-4</Card>
+                            {project.team.map((m, i) => {
+                                return <Card key={i} className="py-2 px-4 my-1 hover:bg-black/10 flex justify-between items-center">
+                                    <div>
+                                        {m.email}
+                                    </div>
+                                    <div className="bg-purple-400 text-white p-2 rounded-md">
+                                        {m.role}
+                                    </div>
+                                </Card>
+                            })}
+
                         </ScrollArea>
                     </Card>
 
@@ -49,7 +58,7 @@ export default async function Page({ params }) {
                         <div className="px-4">
                             {
                                 tasks.map((t) => {
-                                    return <Card key={t._id} className="p-2 my-1 hover:bg-black/10">{t.title}</Card>
+                                    return <TaskOverview key={t._id} task={t} text={status[t.status].text} />
                                 })
                             }
                         </div>
