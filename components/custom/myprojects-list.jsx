@@ -11,8 +11,8 @@ export async function MyProjectsList() {
     const projects = await fetchMyProjects(user.userID)
     return (
         <ProjectsList title="My Projects" button={<Button><Link href="/dashboard/myprojects/add"><PlusIcon /></Link></Button>}>
-            {projects.map((p) => {
-                return <ProjectCard title={p.title} description={p.description} id={p._id} />
+            {projects.map((p,i) => {
+                return <ProjectCard key={i} title={p.title} description={p.description} id={p._id} status={p.status} />
             })}
         </ProjectsList>
     )

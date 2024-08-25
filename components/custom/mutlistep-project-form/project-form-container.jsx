@@ -46,9 +46,9 @@ export default function ProjectFormContainer() {
     }, [data])
 
     const formComponents = [
-        <ProjectForm />,
-        <TeamForm />,
-        <TaskCreator />
+        <ProjectForm key="project" />,
+        <TeamForm key="team" />,
+        <TaskCreator key="tasks" />
     ]
     return (
 

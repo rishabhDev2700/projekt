@@ -24,7 +24,7 @@ export default async function Page({ params }) {
                             {project.description}
                         </CardDescription>
                         <div>
-
+                            {project.status}
                         </div>
                     </div>
                 </div>
