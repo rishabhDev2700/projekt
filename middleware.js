@@ -18,17 +18,12 @@ export const config = {
 export async function middleware(request) {
     const path = request.nextUrl.pathname
     const isProtected = path.startsWith(protectedPath)
-    if (path.startsWith('/api')) {
-        console.log("Routing to API")
-    }
-    console.log("Protected Route? ", isProtected)
     if (!isProtected) {
         return NextResponse.next()
     }
     let cookie = cookies().get('session')?.value
     let session = await decrypt(cookie)
     if (session) {
-        console.log("**Session updated**")
         return await updateSession(cookie)
     } else {
         console.log("Redirecting to the sign in page")
