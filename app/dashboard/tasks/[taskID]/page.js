@@ -7,7 +7,7 @@ export default async function TaskPage({ params }) {
     const data = await fetchSingleTask(params.taskID)
     const task = { title: data.title, description: data.description, deadline: data.deadline, status: data.status, note: data.note, comments: data.comments }
     return (
-        <div className="lg:w-1/2 lg:mx-auto my-4">
+        <div className="lg:w-5/6 xl:w-2/3 lg:mx-auto my-4">
             <TaskDetail task={task} />
         </div>
     )

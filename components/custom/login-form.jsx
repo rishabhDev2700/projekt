@@ -4,11 +4,11 @@ import Submit from "./submit-button"
 import { login } from "@/app/actions"
 export default function LoginForm() {
   return (
-    <form className="p-2 m-4 lg:w-1/2 mx-auto" action={login}>
-    <Label htmlFor="email">Email</Label>
-    <Input type="email" name="email" required />
-    <Label htmlFor="password">Password</Label>
-    <Input type="password" name="password" required />
+    <form className="p-2 m-4 lg:w-5/6 xl:w-2/3 mx-auto bg-transparent" action={login}>
+    <Label className="dark:text-white" htmlFor="email">Email</Label>
+    <Input className="dark:bg-neutral-500 dark:text-white" type="email" name="email" required />
+    <Label className="dark:text-white" htmlFor="password">Password</Label>
+    <Input className="dark:bg-neutral-500 dark:text-white" type="password" name="password" required />
     <Submit text="Login"/>
   </form>  )
 }

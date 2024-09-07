@@ -14,7 +14,7 @@ export default function ProjectCard({ id, title, description, status }) {
 
                 <div className="flex justify-between items-center">
                     <div className="border-2 p-2 rounded-md hover:bg-gray-500 hover:text-white duration-200">{status}</div>
-                    <Button><Link href={`/dashboard/projects/${id}`}><ChevronRight /></Link></Button>
+                    <Link href={`/dashboard/projects/${id}`}><Button><ChevronRight /></Button></Link>
                 </div>
             </CardContent>
         </Card>

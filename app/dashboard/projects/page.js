@@ -1,8 +1,9 @@
-import ProjectsList from '@/components/custom/projects-list'
+import AllProjectsList from '@/components/custom/allprojects-list'
 import React from 'react'
 
 export default function Page() {
+
   return (
-    <ProjectsList title="Projects" />
+    <AllProjectsList title="Projects" />
   )
 }

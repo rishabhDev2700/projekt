@@ -4,7 +4,7 @@ import ProjectsTable from "@/components/custom/projects-table";
 export default function Page() {
     
     return (
-        <main className="xl:w-1/2 mx-auto lg:grid lg:grid-cols-2">
+        <main className="xl:w-2/3 lg:w-5/6 mx-auto lg:grid lg:grid-cols-2">
             <TasksList/>
             <ProjectsTable />
             <EventsList />

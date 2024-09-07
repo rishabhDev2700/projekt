@@ -7,12 +7,12 @@ import { Pencil1Icon, Pencil2Icon } from "@radix-ui/react-icons"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import TaskOverview from "@/components/custom/task-overview"
 import { status } from "@/lib/constants"
+import KanbanBoard from "@/components/custom/kanban-board/board"
 export default async function Page({ params }) {
     let user = await getSession()
-    console.log(user)
     const { project, tasks } = await fetchSingleProject(user.userID, params.projectID)
     return (
-        <Card className="m-2 p-2 w-full lg:w-1/2 mx-auto shadow-md shadow-black/20 dark:bg-neutral-900">
+        <Card className="m-2 p-2 w-full lg:w-5/6 xl:w-2/3 mx-auto shadow-md shadow-black/20 dark:bg-neutral-900">
             <CardHeader className=" text-3xl font-bold">{project.title}</CardHeader>
             <CardContent >
                 <div className="grid lg:grid-cols-2 lg:gap-12">
@@ -66,6 +66,7 @@ export default async function Page({ params }) {
                     </Card>
 
                 </div>
+                <KanbanBoard tasks={[...tasks]} />
             </CardContent>
         </Card>
 
