@@ -4,6 +4,10 @@ import { Schema, models, model, Types } from "mongoose";
 const member = Schema({
     email: String,
     role: String,
+    accepted: {
+        type: Boolean,
+        default:false
+    }
 })
 
 const projectSchema = Schema({

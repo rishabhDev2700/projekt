@@ -6,9 +6,9 @@ const UserSchema = new Schema(
     name: String,
     email: String,
     password: String,
-    emailVerificationCode: String,
-    emailVerified: { type: Boolean, default: false },
+    verificationCode: String,
+    verified: { type: Boolean, default: false },
   },
 );
 
-export const User = models.User || model("User",UserSchema)
+export const User = models.User || model("User", UserSchema)
