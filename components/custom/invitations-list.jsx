@@ -1,3 +1,4 @@
+import { Button } from "../ui/button";
 export const InvitationsList = () => {
     const projects = [
         { id: 1, name: 'Project 1', description: 'This is a sample project.' },
