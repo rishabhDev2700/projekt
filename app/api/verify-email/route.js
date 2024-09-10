@@ -3,8 +3,9 @@ import { NextResponse } from "next/server"
 
 export async function POST(req) {
     const body = await req.json()
-    console.log(body)
-    await verifyEmail(body.id, body.token)
+    const result = await verifyEmail(body.id, body.token)
+    if (result)
+        return NextResponse.json({ "status": 200 })
+    return NextResponse.json({ "status": 404 })
 
-    return NextResponse.json({ "status": 200 })
 }
