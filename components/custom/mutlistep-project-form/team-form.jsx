@@ -33,7 +33,7 @@ export default function TeamForm() {
 
     const removeFromTeam = (email) => {
         let updatedTeam = data.team.filter((e) => e.email !== email)
-        setTeam(updatedTeam)
+        setData({ ...data, team:updatedTeam })
         toast({
             title: "Email removed",
         })

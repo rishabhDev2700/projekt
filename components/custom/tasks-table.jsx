@@ -85,7 +85,7 @@ export default function TasksTable() {
 
                 </ScrollArea>
             </CardContent>
-            <CardFooter><Button><Link href="/tasks">All Tasks</Link></Button></CardFooter>
+            <CardFooter><Button><Link href="/dashboard/tasks">All Tasks</Link></Button></CardFooter>
         </Card>
     )
 }

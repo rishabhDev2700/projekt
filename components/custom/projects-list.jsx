@@ -1,9 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
-import { Button } from '../ui/button'
-import Link from 'next/link'
-import ProjectCard from './project-card'
+
 export default function ProjectsList({ title, children, button }) {
     return (
         <Card className="lg:w-5/6 xl:w-2/3 lg:mx-auto lg:my-4 m-2 dark:bg-neutral-900 shadow-md shadow-black/20">

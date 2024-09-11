@@ -84,7 +84,7 @@ export default function ProjectsTable() {
 
                 </ScrollArea>
             </CardContent>
-            <CardFooter><Button><Link href="/dashboard/projects">All Projects</Link></Button></CardFooter>
+            <CardFooter><Link href="/dashboard/projects"><Button>All Projects</Button></Link></CardFooter>
         </Card>
     )
 }

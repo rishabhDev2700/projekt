@@ -19,7 +19,7 @@ export default function ProjectFormContainer() {
         setLoading(true)
 
         console.log(JSON.stringify(data))
-        const url = 'http://localhost:3000/api/projects'
+        const url = 'http://16.171.140.223:3000/api/projects'
         fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {

@@ -19,6 +19,11 @@ export default function TaskDetail({ task }) {
     const [status, setStatus] = useState(task.status)
     const [note, setNote] = useState(task.note)
     const [comments, setComments] = useState(task.comments)
+    const [assigned, setAssigned] = useState(task.user)
+    const [team, setTeam] = useState([])
+    useEffect(() => {
+
+    }, [])
     return (
         <Card className="dark:bg-neutral-900 mx-2 border-2 shadow-md shadow-black/20">
             <CardHeader>
@@ -36,17 +41,33 @@ export default function TaskDetail({ task }) {
             </CardHeader>
             <CardContent>
                 {/* <div className="flex justify-between items-center w-52"> */}
-                <Label htmlFor="status">Status:</Label>
-                <Select id="status" onValueChange={setStatus} value={status} >
-                    <SelectTrigger className="w-[180px] mb-4">
-                        <SelectValue placeholder={`${st[status].text}`} />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {
-                            st.map((st, i) => <SelectItem key={i} value={i}>{st.text}</SelectItem>)
-                        }
-                    </SelectContent>
-                </Select>
+                <div className=''>
+                    <Label htmlFor="status">Status:</Label>
+                    <Select id="status" onValueChange={setStatus} value={status} defaultValue={st[status].text}>
+                        <SelectTrigger className="w-[180px] mb-4">
+                            <SelectValue placeholder={`${st[status].text}`} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {
+                                st.map((st, i) => <SelectItem key={i} value={i}>{st.text}</SelectItem>)
+                            }
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+
+                    <Label htmlFor="assigned">Assigned to:</Label>
+                    <Select id="assigned" onValueChange={setAssigned} value={assigned} defaultValue={assigned}>
+                        <SelectTrigger className="w-[180px] mb-4">
+                            <SelectValue placeholder={`${st[status].text}`} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {
+                                st.map((st, i) => <SelectItem key={i} value={i}>{st.text}</SelectItem>)
+                            }
+                        </SelectContent>
+                    </Select>
+                </div>
                 {/* </div> */}
             </CardContent>
         </Card>
