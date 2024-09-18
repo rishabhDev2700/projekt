@@ -1,23 +1,27 @@
 import { decrypt, getSession } from "@/lib/session"
 import connectMongo from "@/models/db"
+import { Invitation } from "@/models/invitation"
 import { Project } from "@/models/project"
 import { Task } from "@/models/task"
 import { NextResponse } from "next/server"
 export async function POST(req) {
     let user = await getSession()
-    console.log(user)
     let data = await req.json()
-    let raw_tasks = [...data.tasks]
+    let rawTasks = [...data.tasks]
     delete data.tasks
+    let team = [...data.team]
+    delete data.team
     data.user = user.userID
+    console.log(team)
     try {
         await connectMongo()
-        console.log(data)
         const insertedID = await Project.create({ ...data })
-        console.log(insertedID)
-        let tasks = raw_tasks.map((t) => { return { ...t, project: insertedID } })
-        const result = await Task.insertMany(tasks)
-        return NextResponse.json({ "project": insertedID, "tasks": result })
+        console.log("Inserted ID", insertedID)
+        let tasks = rawTasks.map((t) => { return { ...t, project: insertedID } })
+        let taskResult = await Task.insertMany(tasks)
+        team = team.map(t => { return { project: insertedID, email: t.email, role: t.role } })
+        let invitationResult = Invitation.insertMany(team)
+        return NextResponse.json({ "project": insertedID, "tasks": taskResult, "team": invitationResult })
     }
     catch (e) {
         console.log(e)

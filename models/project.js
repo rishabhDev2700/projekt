@@ -1,14 +1,6 @@
 import { Schema, models, model, Types } from "mongoose";
 
 
-const member = Schema({
-    email: String,
-    role: String,
-    accepted: {
-        type: Boolean,
-        default:false
-    }
-})
 
 const projectSchema = Schema({
     user: Types.ObjectId,
@@ -16,7 +8,7 @@ const projectSchema = Schema({
     description: String,
     startdate: Date,
     enddate: Date,
-    team: [member],
+    team: [Types.ObjectId],
     status: String,
 })
 

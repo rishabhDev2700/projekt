@@ -19,7 +19,7 @@ export default function ProjectFormContainer() {
         setLoading(true)
 
         console.log(JSON.stringify(data))
-        const url = 'http://16.171.140.223:3000/api/projects'
+        const url = '/api/projects'
         fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -35,11 +35,9 @@ export default function ProjectFormContainer() {
             setLoading(false)
         }).catch(err => {
 
-            console.error('There has been a problem with your fetch operation:', error);
+            console.error('There has been a problem with your fetch operation:', err);
             throw error;
         })
-
-        // Check if the response is OK (status code in the range 200-299)
     }
     useEffect(() => {
         console.log("Data updated:", data)
