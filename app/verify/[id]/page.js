@@ -13,7 +13,7 @@ export default function Page({ params }) {
     const search = useSearchParams()
     const token = search.get('token');
     const confirmVerification = async () => {
-        const response = await fetch(`http://192.168.1.8:3000/api/verify-email`, {
+        const response = await fetch("/api/verify-email", {
             method: 'POST',
             body: JSON.stringify({
                 id,

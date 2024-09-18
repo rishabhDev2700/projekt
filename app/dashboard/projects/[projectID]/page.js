@@ -3,7 +3,7 @@ import { fetchSingleProject } from "@/lib/getData"
 import { getSession } from "@/lib/session"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Pencil1Icon, Pencil2Icon } from "@radix-ui/react-icons"
+import { Pencil1Icon } from "@radix-ui/react-icons"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import TaskOverview from "@/components/custom/task-overview"
 import { status } from "@/lib/constants"
@@ -31,13 +31,13 @@ export default async function Page({ params }) {
                 <div className="grid lg:grid-cols-2 lg:gap-12">
 
                     <Card className="my-4">
-                        <div className="flex justify-between items-center p-4">
+                        <div className="flex justify-between items-center p-2">
                             <CardTitle>Team</CardTitle>
-                            <Button className="bg-indigo-400 hover:bg-indigo-800" size="icon"><Link href="/dashboard/projects/432432/team"><Pencil1Icon /></Link></Button>
+                            <Link href="/dashboard/projects/432432/team"><Button className="bg-indigo-400 hover:bg-indigo-800" size="icon"><Pencil1Icon /></Button></Link>
                         </div>
                         <ScrollArea>
                             {project.team.map((m, i) => {
-                                return <Card key={i} className="py-2 px-4 my-1 hover:bg-black/10 flex justify-between items-center">
+                                return <Card key={i} className="p-2 mx-2 my-1 hover:bg-black/10 flex justify-between items-center text-sm font-sm">
                                     <div>
                                         {m.email}
                                     </div>
@@ -51,22 +51,24 @@ export default async function Page({ params }) {
                     </Card>
 
                     <Card className="my-4">
-                        <div className="flex justify-between items-center p-4">
+                        <div className="flex justify-between items-center p-2">
                             <CardTitle>Tasks</CardTitle>
-                            <Button className="bg-indigo-400 hover:bg-indigo-800" size="icon"><Link href="/dashboard/projects/432432/tasks"><Pencil1Icon /></Link></Button>
+                            <Link href="/dashboard/projects/432432/tasks"> <Button className="bg-indigo-400 hover:bg-indigo-800" size="icon"><Pencil1Icon /></Button></Link>
                         </div>
-                        <div className="px-4">
+                        <div className="px-2">
                             {
                                 tasks.map((t) => {
-                                    return <TaskOverview key={t._id} task={t} text={status[t.status].text} />
-                                })
-                            }
+                                    return (
+                                        <TaskOverview task={t} text={status[t.status].text} color={status[t.status].color} key={t.id} />
+
+                                    )
+                                })}
                         </div>
 
                     </Card>
 
                 </div>
-                <KanbanBoard tasks={[...tasks]} />
+                {/* <KanbanBoard tasks={[...tasks]} /> */}
             </CardContent>
         </Card>
 

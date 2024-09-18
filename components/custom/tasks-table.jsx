@@ -5,8 +5,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { EnterIcon } from '@radix-ui/react-icons'
+import { fetchMyTasks } from '@/lib/getData'
+import { getSession } from '@/lib/session'
+import { status } from '@/lib/constants'
 
-export default function TasksTable() {
+export default async function TasksTable() {
+    const user = await getSession()
+    let tasks = await fetchMyTasks(user.userID)
     return (
         <Card className="m-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20">
             <CardHeader className="text-2xl font-semibold"><div>My Tasks</div></CardHeader>
@@ -28,14 +33,14 @@ export default function TasksTable() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Developer</TableCell>
-                                <TableCell>xx/xx/xxxx</TableCell>
-                                <TableCell><Link href="/dashboard/tasks"><Button size="icon"><EnterIcon /></Button></Link></TableCell>
+                            {tasks.length > 0 ? tasks.map(t => (<TableRow key={t._id}>
+                                <TableCell>{t.title}</TableCell>
+                                <TableCell> <Button className={`bg-${status[t.status].color}-500`}>{status[t.status].text}</Button></TableCell>
+                                <TableCell>{t.dealine}</TableCell>
+                                <TableCell><Link href={`/dashboard/tasks/${t._id}`}><Button size="icon"><EnterIcon /></Button></Link></TableCell>
 
-                            </TableRow>
-                            <TableRow>
+                            </TableRow>)) : <TableRow><TableCell>No task</TableCell></TableRow>}
+                            {/* <TableRow>
                                 <TableCell>Name</TableCell>
                                 <TableCell>Developer</TableCell>
                                 <TableCell>xx/xx/xxxx</TableCell>
@@ -79,13 +84,13 @@ export default function TasksTable() {
                                 <TableCell>Name</TableCell>
                                 <TableCell>Developer</TableCell>
                                 <TableCell>xx/xx/xxxx</TableCell>
-                            </TableRow>
+                            </TableRow> */}
                         </TableBody>
                     </Table>
 
                 </ScrollArea>
             </CardContent>
-            <CardFooter><Button><Link href="/dashboard/tasks">All Tasks</Link></Button></CardFooter>
+            <CardFooter><Link href="/dashboard/tasks"><Button className="bg-blue-400">All Tasks</Button></Link></CardFooter>
         </Card>
     )
 }
