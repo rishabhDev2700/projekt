@@ -1,10 +1,8 @@
-import { decrypt, getSession } from "@/lib/session"
+import { getSession } from "@/lib/session"
 import connectMongo from "@/models/db"
-import { Invitation } from "@/models/invitation"
 import { Project } from "@/models/project"
-import { Task } from "@/models/task"
-import { Team } from "@/models/team"
 import { NextResponse } from "next/server"
+import { Team } from "@/models/project"
 export async function POST(req) {
     let user = await getSession()
     let data = await req.json()

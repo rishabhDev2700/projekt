@@ -10,7 +10,7 @@ export default async function page({ params }) {
     let { project } = await fetchSingleProject(user.userID, params.projectID)
     project = JSON.parse(JSON.stringify(project))
     console.log(project)
-    const list = tasks.map(t => <div>{t.title}</div>)
+    const list = tasks.map(t => <div key={t.title}>{t.title}</div>)
     return (
         <Card className='lg:w-2/3 lg:mx-auto mt-8 p-4'>
             <div className='flex justify-around w-full'>
