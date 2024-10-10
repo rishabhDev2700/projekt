@@ -23,24 +23,46 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useToast } from '@/components/ui/use-toast'
+import Submit from '../submit-button'
 
 export default function TeamForm() {
-    const { data, setData } = useContext(FormContext)
-    // const [team, setTeam] = useState(data.team)
+    const [team, setTeam] = useState([])
     const [email, setEmail] = useState('')
-    const [role, setRole] = useState('')
+    const [role, setRole] = useState('viewer')
     const { toast } = useToast()
-
+    const saveTeam = () => {
+        fetch('/api/project/team', {
+            method: 'POST', // Specifies the request type
+            headers: {
+                'Content-Type': 'application/json', // Ensures the server understands it's receiving JSON
+            },
+            body: JSON.stringify(team), // Converts the JS object into a JSON string
+        })
+    }
     const removeFromTeam = (email) => {
-        let updatedTeam = data.team.filter((e) => e.email !== email)
-        setData({ ...data, team:updatedTeam })
+        let updatedTeam = team.filter((e) => e.email !== email)
+        setTeam(updatedTeam)
         toast({
             title: "Email removed",
         })
     }
     const addUserToTeam = (e) => {
         e.preventDefault()
-        const exist = data.team.find(e => e.email === email)
+        const exist = team.find(u => u.email === email)
+        if (!email) {
+            toast({
+                title: "Email field empty!",
+            })
+            return
+        } else {
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                toast({
+                    title: "Invalid Email!",
+                })
+                return
+            }
+        }
         if (exist) {
             setEmail('')
             setRole('')
@@ -49,7 +71,7 @@ export default function TeamForm() {
             })
             return
         }
-        setData({ ...data, team: [...data.team, { email: email, role: role }] })
+        setTeam([...team, { email: email, role: role }])
         toast({
             title: "Added Successfully",
             description: "Email Added",
@@ -72,7 +94,7 @@ export default function TeamForm() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {data.team.length !== 0 ? data.team.map((e, index) => {
+                            {team.length !== 0 ? team.map((e, index) => {
                                 return (
                                     <TableRow key={index}>
                                         <TableCell>{index + 1}</TableCell>
@@ -99,22 +121,21 @@ export default function TeamForm() {
                         <div>
                             <Label className="w-full" htmlFor="role">Select Role</Label>
 
-                            <Select id="role" onValueChange={setRole} value={role} required>
+                            <Select id="role" onValueChange={setRole} value={role} defaultValue='viewer' required>
                                 <SelectTrigger className="mt-4" >
                                     <SelectValue placeholder="Role" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Developer">Developer</SelectItem>
-                                    <SelectItem value="Designer">Designer</SelectItem>
-                                    <SelectItem value="Writer">Writer</SelectItem>
-                                    <SelectItem value="Manager">Manager</SelectItem>
-                                    <SelectItem value="Engineer">Engineer</SelectItem>
+                                    <SelectItem value="admin">Admin</SelectItem>
+                                    <SelectItem value="member">Member</SelectItem>
+                                    <SelectItem value="viewer">Viewer</SelectItem>
                                 </SelectContent>
                             </Select>
 
                         </div>
                     </div>
-                    <Button className="my-4 w-full h-12" type="submit">Add</Button>
+                    <Button className="my-4 w-full h-12 bg-teal-500 hover:bg-teal-600" type="submit">Add</Button>
+                    <Submit text="Invite" color="purple" />
                 </form>
             </motion.div>
         </AnimatePresence>

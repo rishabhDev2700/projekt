@@ -24,8 +24,8 @@ export default function Home() {
         </Tabs>
       </div>
       {/* //desktop */}
-      <Image className="hidden lg:block dark:lg:hidden w-full h-screen object-cover" src={bg2} />
-      <Image className="hidden dark:lg:block w-full h-screen object-cover" src={bg} />
+      <Image alt="" className="hidden lg:block dark:lg:hidden w-full h-screen object-cover" src={bg2} />
+      <Image alt="" className="hidden dark:lg:block w-full h-screen object-cover" src={bg} />
 
     </main>
 

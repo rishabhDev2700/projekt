@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from '../ui/button'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from "next/image"
 export default function ProjectCard({ id, title, description, status }) {
     return (
         <Card className="-z-50 lg:w-56 rounded-xl lg:inline-block my-2 lg:m-1 hover:scale-95 duration-200 shadow-md shadow-black/10">

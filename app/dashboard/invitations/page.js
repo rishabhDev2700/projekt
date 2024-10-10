@@ -4,45 +4,6 @@ import { useState, useEffect } from "react";
 
 
 
-
-
-
-
-const fakeData = [
-  {
-    _id: 'project1',
-    title: 'Project 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    team: [
-      {
-        email: 'user1@example.com',
-        role: 'Project Manager'
-      },
-      {
-        email: 'user2@example.com',
-        role: 'Developer'
-      }
-    ]
-  },
-  {
-    _id: 'project2',
-    title: 'Project 2',
-    description: 'Nulla facilisi. Ut fermentum, arcu eu placerat tincidunt, velit lacus accumsan velit.',
-    team: [
-      {
-        email: 'user3@example.com',
-        role: 'Designer'
-      },
-      {
-        email: 'user4@example.com',
-        role: 'Tester'
-      }
-    ]
-  },
-  // Add more fake data as needed
-];
-
-
 export default function Page() {
   const [invitations, setInvitations] = useState(fakeData);
   const [loading, setLoading] = useState(true);

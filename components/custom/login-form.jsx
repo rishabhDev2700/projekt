@@ -9,6 +9,6 @@ export default function LoginForm() {
     <Input className="dark:bg-neutral-500 dark:text-white" type="email" name="email" required />
     <Label className="dark:text-white" htmlFor="password">Password</Label>
     <Input className="dark:bg-neutral-500 dark:text-white" type="password" name="password" required />
-    <Submit text="Login"/>
+      <Submit color="blue" text="Login"/>
   </form>  )
 }

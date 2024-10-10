@@ -1,8 +1,10 @@
 import React from 'react'
 import { useDraggable } from '@dnd-kit/core';
+// this is the item
 export default function Draggable(props) {
+    console.log("Item props:", props)
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: props.id,
+        id: props.status,
     });
     const style = transform ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0) scale(1.1)`,

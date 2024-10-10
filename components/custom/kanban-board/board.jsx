@@ -13,21 +13,18 @@ const columns = [
 
 export default function KanbanBoard(props) {
     const [tasks, setTasks] = useState([
-       ...props.tasks
-        // Initial task data
+        ...props.tasks
         // { id: 1, title: 'UI', description: 'Task description', status: 1 },
-        // { id: 2, title: 'Backend', description: 'Task description', status: 2 },
-        // { id: 3, title: 'Frontend', description: 'Task description', status: 1 },
-        // { id: 4, title: 'Testing', description: 'Task description', status: 3 },
-        // ... other tasks
+
     ]);
-    console.log("board:",props.tasks)
+    console.log("board:", props.tasks)
     function handleDragEnd(event) {
-        console.log(event)
+        console.table(event)
         if (event.over) {
             const updatedTasks = tasks.map(t => {
-                if (t.id == event.active.id) {
+                if (t.id == event.active._id) {
                     const newStatus = event.over.id || t.status; // Default to current status if mapping is missing
+                    console.log("New state:".newStatus)
                     return { ...t, status: newStatus };
                 }
                 return t;

@@ -12,10 +12,10 @@ export default async function ProjectsTable() {
     const user = await getSession()
     const projects = await fetchAllProjects(user.userID)
     return (
-        <Card className="m-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20">
-            <CardHeader className="text-2xl font-semibold"><div>My Projects</div></CardHeader>
+        <Card className="m-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20 flex flex-col justify-between">
+            <CardHeader className="text-2xl font-semibold h-5/12"><div>My Projects</div></CardHeader>
             <Separator />
-            <CardContent className="mt-4 font-light">
+            <CardContent className="mt-4 font-light h-4/6">
                 <ScrollArea className="max-h-64">
                     <Table>
                         <TableHeader>
@@ -45,7 +45,7 @@ export default async function ProjectsTable() {
 
                 </ScrollArea>
             </CardContent>
-            <CardFooter><Link href="/dashboard/projects"><Button className="bg-purple-400">All Projects</Button></Link></CardFooter>
+            <CardFooter className="h-1/6"><Link href="/dashboard/projects"><Button className="bg-purple-400">All Projects</Button></Link></CardFooter>
         </Card>
     )
 }

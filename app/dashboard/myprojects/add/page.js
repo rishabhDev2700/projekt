@@ -8,12 +8,10 @@ export default function Page() {
     description: "",
     startdate: "",
     enddate: "",
-    team: [],
-    tasks: []
-    })
+  })
   return (
-    <Provider value={{data,setData}}>
-    <ProjectFormContainer/>
+    <Provider value={{ data, setData }}>
+      <ProjectFormContainer />
     </Provider>
   )
 }

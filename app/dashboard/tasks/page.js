@@ -14,7 +14,7 @@ export default async function Page() {
                 <CardDescription>These are your tasks from all the projects </CardDescription>
                 <CardContent>
                     {
-                        tasks.map(t => <TaskOverview task={t} text={status[t.status].text} color={ status[t.status].color } />)
+                        tasks.map((t,i) => <TaskOverview key={i} task={t} text={status[t.status].text} color={ status[t.status].color } />)
                     }
                 </CardContent>
             </CardHeader>

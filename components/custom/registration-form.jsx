@@ -19,6 +19,6 @@ export default function RegistrationForm() {
         <Input className="dark:bg-neutral-500 dark:text-white" id="password" type="password" name="password" required onChange={(e) => setPass({ ...pass, password: e.target.value })} />
             <Label htmlFor="confirm-password">Confirm Password</Label>
         <Input className="dark:bg-neutral-500 dark:text-white" id="confirm-password" type="password" name="confirm-password" required onChange={(e) => setPass({ ...pass, confirm: e.target.value })} />
-            <Submit text="Register" />
+            <Submit color="green" text="Register" />
         </form>)
 }
