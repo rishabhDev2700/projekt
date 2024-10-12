@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Pencil1Icon } from "@radix-ui/react-icons"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import TaskOverview from "@/components/custom/task-overview"
-import { status } from "@/lib/constants"
+import { status, statusColor } from "@/lib/constants"
 import {
     Dialog,
     DialogContent,
@@ -16,8 +16,10 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import InvitationForm from "@/components/custom/invitation-form"
+import TaskForm from "@/components/custom/task-form"
 
 export default async function Page({ params }) {
+    console.log("status:", status)
     let user = await getSession()
     const { project, tasks } = await fetchSingleProject(user.userID, params.projectID)
     return (
@@ -81,13 +83,14 @@ export default async function Page({ params }) {
                     <Card className="my-4">
                         <div className="flex justify-between items-center p-2">
                             <CardTitle>Tasks</CardTitle>
-                            <Link href={`/dashboard/projects/${project._id}/tasks`}> <Button className="bg-indigo-400 hover:bg-indigo-800" size="icon"><Pencil1Icon /></Button></Link>
+                            <TaskForm projectID={params.projectID} team={JSON.parse(JSON.stringify(project.team))} />
                         </div>
                         <div className="px-2">
                             {
                                 tasks.map((t) => {
+                                    console.log(t.status)
                                     return (
-                                        <TaskOverview task={t} text={status[t.status].text} color={status[t.status].color} key={t.id} />
+                                        <TaskOverview projectID={params.projectID} task={t} text={t.status} color={`bg-${statusColor(t.status)}-500`} key={t.id} />
 
                                     )
                                 })}

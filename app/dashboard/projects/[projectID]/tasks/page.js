@@ -15,7 +15,7 @@ export default async function page({ params }) {
         <Card className='lg:w-2/3 lg:mx-auto mt-8 p-4'>
             <div className='flex justify-around w-full'>
                 <h1 className="text-white">Project Tasks</h1>
-                <TaskForm team={project.team} />
+                <TaskForm team={project.team} projectID={params.projectID} />
             </div>
             <div>
                 {list}

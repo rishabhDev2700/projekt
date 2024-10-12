@@ -1,23 +1,23 @@
 import { model, models, Schema, Types } from "mongoose"
 
 const commentSchema = Schema({
-    user:Types.ObjectId,
-    task:Types.ObjectId,
-    comment:String,
+    user: Types.ObjectId,
+    task: Types.ObjectId,
+    comment: String,
 })
 
 
 
 const taskSchema = Schema({
-    title:String,
-    description:String,
-    deadline:Date,
-    user:Types.ObjectId,
-    project:Types.ObjectId,
-    status:String,
-    file:String,
-    note:String,
-    comments:[commentSchema]
+    title: String,
+    description: String,
+    deadline: Date,
+    user: Types.ObjectId,
+    project: Types.ObjectId,
+    status: { type: String, default: "Not started" },
+    file: String,
+    note: String,
+    comments: [commentSchema]
 })
 
-export const Task = models.Task || model('Task',taskSchema)
+export const Task = models.Task || model('Task', taskSchema)
