@@ -26,7 +26,7 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
     const [comments, setComments] = useState(task.comments)
     const [assigned, setAssigned] = useState(task.user)
     const { toast } = useToast()
-    const { router } = useRouter()
+    const router = useRouter()
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -76,7 +76,7 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
 
             if (response.ok) {
                 toast({ title: "Task deleted successfully!" });
-                router.push('/dashboard/projects')
+                router.push(`/dashboard/projects/${projectID}`)
                 // Optionally redirect or refresh the page
             } else {
                 toast({ title: "Failed to delete the Task." });
