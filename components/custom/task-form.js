@@ -36,7 +36,6 @@ export default function TaskForm({ team, task, projectID }) {
     const [error, setError] = useState(null)
     const router = useRouter()
     const handleSubmit = async (e) => {
-        console.log("handling submission")
         e.preventDefault()
 
         // Basic validation (optional)
@@ -45,7 +44,6 @@ export default function TaskForm({ team, task, projectID }) {
             return
         }
         try {
-            console.log("Fetching")
             const res = await fetch(`/api/projects/${projectID}/tasks`, {
                 method: 'POST',
                 headers: {
@@ -59,7 +57,6 @@ export default function TaskForm({ team, task, projectID }) {
             if (!res.ok) {
                 throw new Error(result.error || 'Something went wrong')
             }
-            console.log(result)
             // Reset form or handle success
             setData({
                 title: '',
@@ -76,6 +73,15 @@ export default function TaskForm({ team, task, projectID }) {
             console.error(err)
             setError(err.message)
         }
+    }
+    console.log(team.members)
+    const currentAssignedUser = (id) => {
+        for (let m of team.members) {
+            if (m === m.user._id) {
+                return m
+            }
+        }
+        return ''
     }
 
     return (
@@ -97,7 +103,7 @@ export default function TaskForm({ team, task, projectID }) {
                         <Label htmlFor="note">Note</Label>
                         <Textarea className="my-2" id="note" onChange={e => setData({ ...data, note: e.target.value })} value={data.note} ></Textarea>
                         <Label htmlFor="assignedto">Assign to</Label>
-                        <Select id="assignedto" onValueChange={e => setData({ ...data, assignedTo: e })} value={data.assignedTo}>
+                        <Select id="assignedto" onValueChange={e => setData({ ...data, assignedTo: e })} value={currentAssignedUser(data.assignedTo)}>
                             <SelectTrigger className="w-[380px]">
                                 <SelectValue placeholder="Assign to" />
                             </SelectTrigger>

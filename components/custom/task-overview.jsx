@@ -3,7 +3,6 @@ import { Button } from "../ui/button"
 import { Pencil2Icon } from "@radix-ui/react-icons"
 import Link from "next/link"
 export default function TaskOverview({ task, color, text,projectID }) {
-    console.log(color)
     return (
         <Card className="py-2 px-4 my-1 hover:bg-black/10 flex justify-between items-center text-sm font-light">
             {task.title}

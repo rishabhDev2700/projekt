@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import Submit from './submit-button'
 import { Button } from '../ui/button'
 export default function UpdateForm({ project }) {
     const [data, setData] = useState({
@@ -17,9 +16,7 @@ export default function UpdateForm({ project }) {
     })
     const { toast } = useToast()
     const router = useRouter()
-    console.log(data)
     const handleUpdate = async () => {
-        console.log("Updating")
         try {
             const response = await fetch("/api/projects/", {
                 method: 'PUT',
@@ -32,7 +29,7 @@ export default function UpdateForm({ project }) {
             if (response.ok) {
                 const updatedProject = await response.json();
                 toast({ title: "Project updated successfully!" });
-                // Optionally refresh or redirect
+                router.push(`/dashboard/projects/${project._id}`)
             } else {
                 toast({ title: "Failed to update the project." });
             }
@@ -41,8 +38,6 @@ export default function UpdateForm({ project }) {
         }
     };
     const handleDelete = async () => {
-        console.log("Delete")
-
         const confirmDelete = confirm("Are you sure you want to delete this project?");
         if (!confirmDelete) return;
 
@@ -54,7 +49,6 @@ export default function UpdateForm({ project }) {
             if (response.ok) {
                 toast({ title: "Project deleted successfully!" });
                 router.push('/dashboard/projects')
-                // Optionally redirect or refresh the page
             } else {
                 toast({ title: "Failed to delete the project." });
             }
@@ -79,8 +73,9 @@ export default function UpdateForm({ project }) {
                 <Input className="p-2 m-2" type="datetime-local" placeholder="End Date"
                     onChange={(e) => setData({ ...data, enddate: e.target.value })} value={data.enddate} />
                 <div className='flex justify-between m-4'>
-                    <Button onClick={() => handleUpdate()}>Update</Button>  
-                    <Button onClick={() => handleDelete()} variant="destructive">Delete</Button>                 </div>
+                    <Button onClick={() => handleUpdate()}>Update</Button>
+                    <Button onClick={() => handleDelete()} variant="destructive">Delete</Button>
+                </div>
             </div>
         </>
 

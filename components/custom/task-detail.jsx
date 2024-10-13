@@ -41,9 +41,7 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
         };
 
         try {
-            // Make a PUT request to update the task
-            console.log("PID:", projectID)
-            console.log("TID:", taskID)
+
             const response = await fetch(`/api/projects/${projectID}/tasks/${taskID}`, {
                 method: "PUT",
                 headers: {
@@ -54,6 +52,7 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
             if (response.ok) {
                 const updatedProject = await response.json();
                 toast({ title: "Project updated successfully!" });
+                router.push(`/dashboard/projects/${projectID}`)
                 // Optionally refresh or redirect
             } else {
                 toast({ title: "Failed to update the project." });
@@ -85,6 +84,20 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
             console.error("Error deleting Task:", error);
         }
     };
+
+    const currentAssignedUser = (id) => {
+        console.log("Assigned ID:",id)
+        for (let m of projectTeam) {
+            if (id === m.user._id) {
+                console.log("From func :", m)
+                return m
+            }
+        }
+        return ''
+    }
+    console.log("Assigned:",assigned)
+    console.log("Currently assigned user:",currentAssignedUser(assigned) )
+
     return (
         <Card className="dark:bg-neutral-900 mx-2 border-2 shadow-md shadow-black/20">
             <CardHeader>
@@ -120,7 +133,7 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
                 <div>
 
                     <Label htmlFor="assigned">Assigned to:</Label>
-                    <Select id="assigned" onValueChange={setAssigned} value={assigned} defaultValue={assigned}>
+                    <Select id="assigned" onValueChange={setAssigned} value={assigned} defaultValue={currentAssignedUser(assigned)}>
                         <SelectTrigger className="w-[180px] mb-4">
                             <SelectValue placeholder={assigned} />
                         </SelectTrigger>

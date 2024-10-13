@@ -9,7 +9,6 @@ import Link from 'next/link'
 export async function MyProjectsList() {
     const user = await getSession()
     const projects = await fetchMyProjects(user.userID)
-    console.log(projects)
     return (
         <ProjectsList title="My Projects" button={<Link href="/dashboard/myprojects/add"><Button><PlusIcon /></Button></Link>}>
             {projects.map((p, i) => {

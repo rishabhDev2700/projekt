@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { EnterIcon } from '@radix-ui/react-icons'
 import { fetchMyTasks } from '@/lib/getData'
 import { getSession } from '@/lib/session'
-import { status } from '@/lib/constants'
+import { status, statusColor } from '@/lib/constants'
 import { Link2Icon } from 'lucide-react'
 
 export default async function TasksTable() {
@@ -36,9 +36,9 @@ export default async function TasksTable() {
                         <TableBody>
                             {tasks.length > 0 ? tasks.map(t => (<TableRow key={t._id}>
                                 <TableCell>{t.title}</TableCell>
-                                <TableCell> <Button className={`bg-${status[t.status].color}-500`}>{status[t.status].text}</Button></TableCell>
+                                <TableCell> <Button className={`${statusColor(t.status)}`}>{t.status}</Button></TableCell>
                                 <TableCell>{t.dealine}</TableCell>
-                                <TableCell><Link href={`/dashboard/tasks/${t._id}`}><Button size="icon"><EnterIcon /></Button></Link></TableCell>
+                                <TableCell><Link href={`/dashboard/projects/${t.project}/tasks/${t._id}`}><Button size="icon"><EnterIcon /></Button></Link></TableCell>
 
                             </TableRow>)) : <TableRow><TableCell>No task</TableCell></TableRow>}
                         </TableBody>
