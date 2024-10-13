@@ -19,7 +19,6 @@ import InvitationForm from "@/components/custom/invitation-form"
 import TaskForm from "@/components/custom/task-form"
 
 export default async function Page({ params }) {
-    console.log("status:", status)
     let user = await getSession()
     const { project, tasks } = await fetchSingleProject(user.userID, params.projectID)
     return (
@@ -88,7 +87,6 @@ export default async function Page({ params }) {
                         <div className="px-2">
                             {
                                 tasks.map((t) => {
-                                    console.log(t.status)
                                     return (
                                         <TaskOverview projectID={params.projectID} task={t} text={t.status} color={`bg-${statusColor(t.status)}-500`} key={t.id} />
 

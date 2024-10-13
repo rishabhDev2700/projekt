@@ -5,8 +5,7 @@ import { getSession } from '@/lib/session'
 export default async function TaskPage({ params }) {
     const user = await getSession()
     const data = await fetchSingleTask(params.taskID, params.projectID)
-    console.log("Task data:", data)
-    const task = { title: data.title, description: data.description, deadline: data.deadline, status: data.status, note: data.note, comments: data.comments }
+    const task = { title: data.title, description: data.description, deadline: data.deadline, status: data.status, note: data.note, comments: data.comments, user:data.user }
     // const task = { title: "", description: "", deadline: "", status: "", note: "", comments: [] }
     let { project } = await fetchSingleProject(user.userID, params.projectID)
     project = JSON.parse(JSON.stringify(project))

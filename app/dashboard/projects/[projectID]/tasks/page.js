@@ -4,12 +4,10 @@ import { getSession } from '@/lib/session'
 import TaskForm from '@/components/custom/task-form'
 import { Card } from '@/components/ui/card'
 export default async function page({ params }) {
-    console.log("Params:", params)
     const user = await getSession()
     const tasks = await fetchProjectTasks(user.userID, params.projectID)
     let { project } = await fetchSingleProject(user.userID, params.projectID)
     project = JSON.parse(JSON.stringify(project))
-    console.log(project)
     const list = tasks.map(t => <div key={t.title}>{t.title}</div>)
     return (
         <Card className='lg:w-2/3 lg:mx-auto mt-8 p-4'>
