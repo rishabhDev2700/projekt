@@ -1,13 +1,13 @@
 "use client"
 import { useState } from 'react'
-import { Input } from '../ui/input'
-import { Label } from '../ui/label'
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select"
-import { Button } from '../ui/button'
-import { useToast } from '../ui/use-toast'
+import { Input } from '../../ui/input'
+import { Label } from '../../ui/label'
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../../ui/select"
+import { Button } from '../../ui/button'
+import { useToast } from '../../ui/use-toast'
 export default function InvitationForm({ projectID }) {
     const [email, setEmail] = useState('')
-    const [role, setRole] = useState('viewer')
+    const [role, setRole] = useState('1')
     const { toast } = useToast()
     const sendInvitation = async (e) => {
         e.preventDefault()
@@ -25,7 +25,7 @@ export default function InvitationForm({ projectID }) {
         }
         try {
 
-            const response = await fetch('/api/projects/team', {
+            const response = await fetch(`/api/projects/${projectID}/team`, {
                 method: 'POST', // Specifies the request type
                 headers: {
                     'Content-Type': 'application/json', // Ensures the server understands it's receiving JSON
@@ -57,14 +57,14 @@ export default function InvitationForm({ projectID }) {
                 <div>
                     <Label className="w-full" htmlFor="role">Role</Label>
 
-                    <Select id="role" onValueChange={setRole} value={role} defaultValue='viewer' required>
+                    <Select id="role" onValueChange={setRole} value={role} defaultValue='1' required>
                         <SelectTrigger className="mt-4" >
                             <SelectValue placeholder="Role" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="admin">Admin</SelectItem>
-                            <SelectItem value="member">Member</SelectItem>
-                            <SelectItem value="viewer">Viewer</SelectItem>
+                            <SelectItem value="3">Admin</SelectItem>
+                            <SelectItem value="2">Member</SelectItem>
+                            <SelectItem value="1">Viewer</SelectItem>
                         </SelectContent>
                     </Select>
 
