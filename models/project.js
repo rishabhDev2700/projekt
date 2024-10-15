@@ -2,6 +2,11 @@ import { Schema, models, model, Types } from "mongoose";
 
 
 const teamSchema = Schema({
+    project: {
+        type: Types.ObjectId,
+        ref: 'Project'
+
+    },
     members: [{
         user: { type: Types.ObjectId, ref: "User", required: true },
         role: { type: String, enum: ['Admin', 'Member', 'Viewer'], required: true }
