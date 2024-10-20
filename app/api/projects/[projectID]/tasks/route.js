@@ -8,6 +8,8 @@ export async function POST(request, { params }) {
     const data = await request.json()
     data.project = new mongoose.Types.ObjectId(params.projectID)
     console.log(data)
+    data.user = data.assignedTo
+    delete data.assignedTo
     try {
         await connectMongo()
         const task = await Task.create(data)

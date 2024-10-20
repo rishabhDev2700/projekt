@@ -3,18 +3,40 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from "react";
 import { ROLES } from '@/lib/constants';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 export default function InvitationList({ invitations }) {
     const [loading, setLoading] = useState(true);
-
-
-    const handleAcceptInvitation = (projectID, invitationID) => {
+    const { toast } = useToast()
+    const router = useRouter()
+    const handleAcceptInvitation = (invitationID) => {
         // Implement your logic to accept the invitation (e.g., update the database)
-        console.log('Accepting invitation for project:', projectID);
+        fetch(`/api/projects/invitations/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: invitationID,
+            }),
+        });
+        toast({ title: "Accepted invitation to project" });
+        router.refresh()
     };
 
-    const handleRejectInvitation = (projectID) => {
+    const handleRejectInvitation = (invitationID) => {
         // Implement your logic to reject the invitation (e.g., update the database)
-        console.log('Rejecting invitation for project:', projectID);
+        fetch(`/api/projects/invitations/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: invitationID
+            }),
+        });
+        toast({ title: "Rejected invitation to project" });
+
     };
 
     return (

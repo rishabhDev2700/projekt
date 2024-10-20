@@ -46,7 +46,6 @@ export default function InvitationForm({ projectID }) {
         }
 
     }
-    console.log("Invite to project:=>", projectID)
     return (
         <form className='mt-4' onSubmit={sendInvitation}>
             <div className="grid grid-cols-3 gap-4">
@@ -62,14 +61,14 @@ export default function InvitationForm({ projectID }) {
                             <SelectValue placeholder="Role" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="3">Admin</SelectItem>
-                            <SelectItem value="2">Member</SelectItem>
-                            <SelectItem value="1">Viewer</SelectItem>
+                            <SelectItem value="0">Admin</SelectItem>
+                            <SelectItem value="1">Member</SelectItem>
+                            <SelectItem value="2">Viewer</SelectItem>
                         </SelectContent>
                     </Select>
 
                 </div>
-            </div>
             <Button className="my-4 w-full h-12 bg-teal-500 hover:bg-teal-600">Invite</Button>
+            </div>
         </form>)
 }

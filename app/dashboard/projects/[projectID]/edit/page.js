@@ -6,8 +6,7 @@ import { getSession } from '@/lib/session'
 import { formatDateToInput } from '@/lib/utils'
 export default async function Page({ params }) {
   const user = await getSession()
-  let project = await fetchSingleProject(user.userID, params.projectID)
-  project = project.project
+  let {project} = await fetchSingleProject(user.userID, params.projectID)
   project = {
     _id: project._id,
     title: project.title,

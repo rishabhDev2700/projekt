@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TaskOverview from "@/components/custom/task-overview";
-import { status, statusColor } from "@/lib/constants";
+import { ROLES, statusColor } from "@/lib/constants";
 import {
   Dialog,
   DialogContent,
@@ -24,12 +24,13 @@ import {
 import InvitationForm from "@/components/custom/invitation/invitation-form";
 import TaskForm from "@/components/custom/task-form";
 
-export default async function Page({ params }) {
+export default async function ProjectPage({ params }) {
   let user = await getSession();
   const { project, tasks } = await fetchSingleProject(
     user.userID,
     params.projectID
   );
+  console.log(project.team.members)
   return (
     <Card className="m-2 p-2 w-full lg:w-5/6 xl:w-2/3 mx-auto shadow-md shadow-black/20 dark:bg-neutral-900">
       <CardHeader className=" flex flex-row justify-between">
@@ -77,16 +78,16 @@ export default async function Page({ params }) {
               </Dialog>
             </div>
             <ScrollArea>
-              {/* {project.team.map((m, i) => {
-                                return <Card key={i} className="p-2 mx-2 my-1 hover:bg-black/10 flex justify-between items-center text-sm font-sm">
-                                    <div>
-                                        {m.email}
-                                    </div>
-                                    <div className="bg-purple-400 text-white p-2 rounded-md">
-                                        {m.role}
-                                    </div>
-                                </Card>
-                            })} */}
+              {project.team.members.map((m, i) => {
+                return <Card key={i} className="p-2 mx-2 my-1 hover:bg-black/10 flex justify-between items-center text-sm font-sm">
+                  <div>
+                    {m.user.name}
+                  </div>
+                  <div className="bg-purple-400 text-white p-2 rounded-md">
+                    {ROLES[m.role]}
+                  </div>
+                </Card>
+              })}
             </ScrollArea>
           </Card>
 
@@ -95,7 +96,7 @@ export default async function Page({ params }) {
               <CardTitle>Tasks</CardTitle>
               <TaskForm
                 projectID={params.projectID}
-                team={JSON.parse(JSON.stringify(project.team))}
+                team={project.team}
               />
             </div>
             <div className="px-2">

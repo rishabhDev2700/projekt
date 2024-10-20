@@ -29,8 +29,6 @@ export default function EventsList() {
         fetchEvents()
         setLoading(false)
     }, [date])
-    console.log(date)
-    console.log("Events:", events)
     return (
         <Card className="m-2 p-2 dark:bg-neutral-900 shadow-md shadow-black/20 lg:col-span-2">
             <CardHeader className="text-2xl font-semibold text-center"><span>Events</span></CardHeader>

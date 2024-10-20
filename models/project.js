@@ -9,7 +9,7 @@ const teamSchema = Schema({
     },
     members: [{
         user: { type: Types.ObjectId, ref: "User", required: true },
-        role: { type: String, enum: ['Admin', 'Member', 'Viewer'], required: true }
+        role: { type: Number, required: true }
     }],
 })
 teamSchema.index({ 'members.user': 1 });

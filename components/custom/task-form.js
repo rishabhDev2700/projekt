@@ -36,11 +36,13 @@ export default function TaskForm({ team, task, projectID }) {
     const [error, setError] = useState(null)
     const router = useRouter()
     const handleSubmit = async (e) => {
+        console.log("Triggered")
         e.preventDefault()
 
         // Basic validation (optional)
         if (!data.title || !data.description || !data.deadline || !data.assignedTo) {
-            setError("All fields are required")
+            console.log(data)
+            console.log("All fields are required")
             return
         }
         try {
@@ -74,16 +76,15 @@ export default function TaskForm({ team, task, projectID }) {
             setError(err.message)
         }
     }
-    console.log(team.members)
     const currentAssignedUser = (id) => {
         for (let m of team.members) {
-            if (m === m.user._id) {
-                return m
+            if (id === m.user._id) {
+                return m.user.name
             }
         }
         return ''
     }
-
+    console.log("Deadline:", data.deadline)
     return (
         <Dialog>
             <DialogTrigger asChild><Button className="bg-teal-400 hover:bg-cyan-800" >
@@ -91,29 +92,34 @@ export default function TaskForm({ team, task, projectID }) {
             </Button></DialogTrigger>
             <DialogContent>
                 <div className="m-2 p-2 lg:mx-auto  w-full">
-                    <h2 className="text-2xl font-semibold text-center pb-4">New Task</h2>
+                    <DialogTitle asChild>
+                        <h2 className="text-2xl font-semibold text-center pb-4">New Task</h2>
+                    </DialogTitle>
                     <Separator />
-                    <div className="mt-4 font-light w-full">
-                        <Label htmlFor="title">Title</Label>
-                        <Input className="my-2" id="title" type="text" onChange={e => setData({ ...data, title: e.target.value })} value={data.title} />
-                        <Label htmlFor="description">Description</Label>
-                        <Textarea className="my-2" id="description" type="text" onChange={e => setData({ ...data, description: e.target.value })} value={data.description} />
-                        <Label htmlFor="deadline">Deadline</Label>
-                        <Input className="my-2" id="deadline" type="datetime-local" onChange={e => setData({ ...data, deadline: e.target.value })} value={data.deadline} />
-                        <Label htmlFor="note">Note</Label>
-                        <Textarea className="my-2" id="note" onChange={e => setData({ ...data, note: e.target.value })} value={data.note} ></Textarea>
-                        <Label htmlFor="assignedto">Assign to</Label>
-                        <Select id="assignedto" onValueChange={e => setData({ ...data, assignedTo: e })} value={currentAssignedUser(data.assignedTo)}>
-                            <SelectTrigger className="w-[380px]">
-                                <SelectValue placeholder="Assign to" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {team.members.map(t => <SelectItem key={t.user._id} value={t.user._id}>{t.user.name}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
+                    <DialogDescription asChild>
 
-                        <Button className="bg-indigo-500 mt-4" onClick={e => handleSubmit(e)}>Create</Button>
-                    </div>
+                        <div className="mt-4 font-light w-full">
+                            <Label htmlFor="title">Title</Label>
+                            <Input className="my-2" id="title" type="text" onChange={e => setData({ ...data, title: e.target.value })} value={data.title} />
+                            <Label htmlFor="description">Description</Label>
+                            <Textarea className="my-2" id="description" type="text" onChange={e => setData({ ...data, description: e.target.value })} value={data.description} />
+                            <Label htmlFor="deadline">Deadline</Label>
+                            <Input className="my-2" id="deadline" type="datetime-local" onChange={e => setData({ ...data, deadline: e.target.value })} value={data.deadline} />
+                            <Label htmlFor="note">Note</Label>
+                            <Textarea className="my-2" id="note" onChange={e => setData({ ...data, note: e.target.value })} value={data.note} ></Textarea>
+                            <Label htmlFor="assignedto">Assign to</Label>
+                            <Select id="assignedto" onValueChange={e => setData({ ...data, assignedTo: e })} value={data.assignedTo}>
+                                <SelectTrigger className="w-[380px]">
+                                    <SelectValue placeholder="Assign to" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {team.members.map(t => <SelectItem key={t.user._id} value={t.user._id}>{t.user.name}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
+
+                            <Button className="bg-indigo-500 mt-4" onClick={e => handleSubmit(e)}>Create</Button>
+                        </div>
+                    </DialogDescription>
                 </div>
             </DialogContent>
         </Dialog>

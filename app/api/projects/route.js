@@ -9,7 +9,7 @@ export async function POST(req) {
     data.user = user.userID
     try {
         await connectMongo()
-        const team = await Team.create({ members: [{ user: user.userID, role: "Admin" }] })
+        const team = await Team.create({ members: [{ user: data.user, role: 0 }] })
         const insertedID = await Project.create({ ...data, team: team })
         return NextResponse.json({ "project": insertedID })
     }

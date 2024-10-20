@@ -5,7 +5,7 @@ import { Invitation } from "@/models/invitation";
 import { User } from "@/models/user"
 import { Team } from "@/models/project";
 import { Types } from "mongoose";
-import { sendEmail } from "@/lib/email";
+import { generateEmailContent, sendEmail } from "@/lib/email";
 export async function POST(req) {
     const u = await getSession()
     if (!u) {
@@ -14,19 +14,19 @@ export async function POST(req) {
     }
     // try {
     const body = await req.json()
-    console.log(body.email)
-    console.log(u.email)
     await connectMongo();
     const existingUser = await User.findOne({ email: body.email });
     if (!existingUser) {
         // Step 2: Send invitation email if the user doesn't exist
+        const { text, html } = generateEmailContent(ROLES[body.role], "http://projekt.fuzzydevs.com")
         await sendEmail({
             name: "CEO",
             address: "admin@fuzzydevs.com"
         },
             body.email,
             'You’re invited to join the project!',
-            'Sign up to join the project using this link...',
+            { text },
+            { html }
         );
         console.log("User doesnt exist")
         await Invitation.create({ project: body.project, email: body.email, role: Number(body.role) })
@@ -35,7 +35,6 @@ export async function POST(req) {
     }
     console.log("Existing user:", existingUser)
     const userID = existingUser ? existingUser._id : null;
-    console.log("User ID:", userID)
     const team = await Team.findOne({
         project: body.project,
         members: { $elemMatch: { user: new Types.ObjectId(userID) } }

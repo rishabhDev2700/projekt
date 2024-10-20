@@ -27,7 +27,7 @@ export default function ProjectFormContainer() {
                 description: "Project created",
             })
             setLoading(false)
-            return router.push("/dashboard/myprojects")
+            router.refresh()
 
         }).catch(err => {
 

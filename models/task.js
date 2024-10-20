@@ -12,7 +12,7 @@ const taskSchema = Schema({
     title: String,
     description: String,
     deadline: Date,
-    user: Types.ObjectId,
+    user: {type:Types.ObjectId, ref:"User"},
     project: Types.ObjectId,
     status: { type: String, default: "Not started" },
     file: String,

@@ -17,7 +17,7 @@ import { Button } from '../ui/button'
 import { useToast } from '../ui/use-toast'
 import { useRouter } from 'next/navigation'
 
-export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
+export default function TaskDetail({ projectID, taskID, task, team }) {
     const [title, setTitle] = useState(task.title)
     const [description, setDescription] = useState(task.description)
     const [status, setStatus] = useState(task.status)
@@ -50,15 +50,14 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
                 body: JSON.stringify(updatedTask)
             });
             if (response.ok) {
-                const updatedProject = await response.json();
-                toast({ title: "Project updated successfully!" });
+                const updatedTask = await response.json();
+                toast({ title: "Task updated successfully!" });
                 router.push(`/dashboard/projects/${projectID}`)
                 // Optionally refresh or redirect
             } else {
-                toast({ title: "Failed to update the project." });
+                toast({ title: "Failed to update the task." });
             }
             // Assuming you have a backend API at this endpoint
-            console.log("Task updated successfully:", response.data);
             // Optionally, show success message or update UI accordingly
         } catch (error) {
             console.error("Error updating task:", error);
@@ -84,20 +83,15 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
             console.error("Error deleting Task:", error);
         }
     };
-
     const currentAssignedUser = (id) => {
-        console.log("Assigned ID:",id)
-        for (let m of projectTeam) {
-            if (id === m.user._id) {
-                console.log("From func :", m)
-                return m
+        for (let m of team) {
+            if (id === m._id) {
+                return m.user.name
             }
         }
         return ''
     }
-    console.log("Assigned:",assigned)
-    console.log("Currently assigned user:",currentAssignedUser(assigned) )
-
+   
     return (
         <Card className="dark:bg-neutral-900 mx-2 border-2 shadow-md shadow-black/20">
             <CardHeader>
@@ -133,17 +127,14 @@ export default function TaskDetail({ projectID, taskID, task, projectTeam }) {
                 <div>
 
                     <Label htmlFor="assigned">Assigned to:</Label>
-                    <Select id="assigned" onValueChange={setAssigned} value={assigned} defaultValue={currentAssignedUser(assigned)}>
+                    <Select id="assigned" onValueChange={setAssigned} value={assigned} defaultValue={assigned}>
                         <SelectTrigger className="w-[180px] mb-4">
                             <SelectValue placeholder={assigned} />
                         </SelectTrigger>
                         <SelectContent>
-                            {
-                                projectTeam.map(m => {
-                                    console.log(m.user.name)
-                                    return <SelectItem key={m.user._id} value={m.user._id}>{m.user.name}</SelectItem>
-                                })
-                            }
+                            <SelectContent>
+                                {team.map(t => <SelectItem key={t.user._id} value={t.user._id}>{t.user.name}</SelectItem>)}
+                            </SelectContent>
                         </SelectContent>
                     </Select>
                 </div>
