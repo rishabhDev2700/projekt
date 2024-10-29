@@ -18,10 +18,10 @@ export default async function NavBar() {
       </div>
       <Sheet>
         <SheetTrigger asChild>
-          <HamburgerMenuIcon className="lg:hidden" size={64} />
+          <HamburgerMenuIcon className="xl:hidden" size={64} />
         </SheetTrigger>
         <SheetContent side="right">
-          <nav className="flex flex-col p-4 text-center text-neutral-500 dark:text-white text-xl lg:hidden">
+          <nav className="flex flex-col p-4 text-center text-neutral-500 dark:text-white text-xl xl:hidden">
             <ModeToggle />
             <Separator />
             <Link
@@ -68,7 +68,7 @@ export default async function NavBar() {
           </nav>
         </SheetContent>
       </Sheet>
-      <nav className="hidden lg:w-1/3 lg:flex">
+      <nav className="hidden xl:w-1/3 xl:flex">
         <Link
           className="px-4 py-2 my-2 border-b-2 border-transparent hover:border-black/50 dark:hover:border-white/50 duration-200"
           href="/dashboard"
