@@ -11,6 +11,7 @@ import { Link2Icon } from 'lucide-react'
 export default async function ProjectsTable() {
     const user = await getSession()
     const projects = await fetchAllProjects(user.userID)
+    console.log("For table",projects)
     return (
         <Card className="m-4 p-2 dark:bg-neutral-900 shadow-md shadow-black/20 flex flex-col justify-between">
             <CardHeader className="text-2xl font-semibold h-5/12"><div>My Projects</div></CardHeader>
