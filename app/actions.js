@@ -19,9 +19,7 @@ export async function login(form) {
 
 export async function register(form) {
     const verificationToken = generateVerificationToken()
-    console.log("Verification token:", verificationToken)
     const data = { email: form.get('email'), name: form.get('name'), password: form.get('password'), verificationCode: verificationToken }
-    console.log(data)
     data.password = await hashPassword(data.password)
     try {
 
@@ -29,7 +27,6 @@ export async function register(form) {
         const user = await User.findOne({ email: data.email })
         if (!user) {
             const newUser = await User.create(data)
-            console.log("New user ID:", newUser._id)
             await sendVerificationEmail(data.email, newUser._id, verificationToken)
         }
         else {

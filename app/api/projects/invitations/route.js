@@ -10,7 +10,6 @@ export async function PUT(request) {
     try {
         const result = await Invitation.findOneAndUpdate({ _id: data.id }, { status: true }, { new: true })
         // const result = await Invitation.findOne({ _id: data.id })
-        console.log("Invitation updated:", result)
         if (!result) {
             return NextResponse.json({ error: 'Invitation not found' }, { status: 404 });
         }
@@ -22,8 +21,6 @@ export async function PUT(request) {
         const team = await Team.findById(project.team)
         team.members.push({ user: u, role: Number(result.role) })
         await team.save()
-        console.log("Project Team:", project.team)
-        console.log("team:", team)
         return NextResponse.json({ message: "Working" }, { status: 200 })
 
     }
@@ -37,11 +34,9 @@ export async function PUT(request) {
 
 export async function DELETE(request) {
     const data = await request.json()
-    console.log(data)
     const user = await getSession()
     try {
         const result = await Invitation.delete({ _id: data.id, user: user.userID })
-        console.log(result)
         return NextResponse.json({ message: "Invitation deleted" }, { status: 200 })
     }
     catch (e) {

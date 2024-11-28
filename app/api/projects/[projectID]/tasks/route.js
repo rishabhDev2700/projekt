@@ -4,17 +4,14 @@ import mongoose from "mongoose"
 import { NextResponse } from "next/server"
 
 export async function POST(request, { params }) {
-    console.log("Params to API:", params)
     const data = await request.json()
     data.project = new mongoose.Types.ObjectId(params.projectID)
-    console.log(data)
     data.user = data.assignedTo
     delete data.assignedTo
     try {
         await connectMongo()
         const task = await Task.create(data)
         if (!task) {
-            console.log('unable to add task')
             return NextResponse.json({ "message": "Unable to Add Task" }, { status: 404 })
         }
     }

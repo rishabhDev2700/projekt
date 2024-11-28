@@ -6,12 +6,9 @@ import { NextResponse } from "next/server"
 export async function PUT(req, { params }) {
     const data = await req.json()
     const user = await getSession()
-    console.log("data to update:", data)
-    console.log(params)
     try {
         await connectMongo()
         const result = await Task.findOneAndUpdate({ _id: params.taskID, project: params.projectID }, { ...data }, { new: true })
-        console.log("result:", result)
         return NextResponse.json({ data: result })
     }
     catch (err) {
@@ -21,7 +18,6 @@ export async function PUT(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
-    console.log("Deleting:", params)
     try {
         await connectMongo()
         const result = await Task.deleteOne({ _id: params.taskID })

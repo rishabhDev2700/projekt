@@ -36,13 +36,11 @@ export default function TaskForm({ team, task, projectID }) {
     const [error, setError] = useState(null)
     const router = useRouter()
     const handleSubmit = async (e) => {
-        console.log("Triggered")
         e.preventDefault()
 
         // Basic validation (optional)
         if (!data.title || !data.description || !data.deadline || !data.assignedTo) {
-            console.log(data)
-            console.log("All fields are required")
+
             return
         }
         try {
@@ -84,7 +82,7 @@ export default function TaskForm({ team, task, projectID }) {
         }
         return ''
     }
-    console.log("Deadline:", data.deadline)
+
     return (
         <Dialog>
             <DialogTrigger asChild><Button className="bg-teal-400 hover:bg-cyan-800" >

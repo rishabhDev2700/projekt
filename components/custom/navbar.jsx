@@ -32,15 +32,9 @@ export default async function NavBar() {
             </Link>
             <Link
               className="px-4 py-2 my-2 border-b-2 border-transparent hover:border-black/50 dark:hover:border-white/50 duration-200"
-              href="/dashboard/projects"
-            >
-              Projects
-            </Link>
-            <Link
-              className="px-4 py-2 my-2 border-b-2 border-transparent hover:border-black/50 dark:hover:border-white/50 duration-200"
               href="/dashboard/myprojects"
             >
-              My Projects
+              Projects
             </Link>
             <Link
               className="px-4 py-2 my-2 border-b-2 border-transparent hover:border-black/50 dark:hover:border-white/50 duration-200"
@@ -77,7 +71,7 @@ export default async function NavBar() {
         </Link>
         <Link
           className="px-4 py-2 my-2 border-b-2 border-transparent hover:border-black/50 dark:hover:border-white/50 duration-200"
-          href="/dashboard/projects"
+          href="/dashboard/myprojects"
         >
           Projects
         </Link>

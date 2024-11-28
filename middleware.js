@@ -26,7 +26,6 @@ export async function middleware(request) {
     if (session) {
         return await updateSession(cookie)
     } else {
-        console.log("Redirecting to the sign in page")
         return NextResponse.redirect(new URL('/', request.nextUrl))
     }
 }

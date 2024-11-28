@@ -23,11 +23,9 @@ export async function POST(req) {
 export async function PUT(req) {
     const data = await req.json()
     const user = await getSession()
-    console.log("data to update:", data)
     try {
         await connectMongo()
         const result = await Project.findOneAndUpdate({ _id: data._id, user: user.userID }, { ...data }, { new: true })
-        console.log(result)
         return NextResponse.json({ data: result })
     }
     catch (err) {

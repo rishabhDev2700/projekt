@@ -16,10 +16,8 @@ import { formatDateToInput } from "@/lib/utils";
 export default function EventsList() {
   const [date, setDate] = useState(new Date());
   const [events, setEvents] = useState([]);
-  console.log(date);
   const fetchEvents = async (e) => {
     const fdate = formatDateToInput(date);
-    console.log(date);
     const response = await fetch("http://localhost:3000/api/events/", {
       method: "POST",
       credentials: "include",
@@ -28,11 +26,9 @@ export default function EventsList() {
       }),
     });
     const body = await response.json();
-    console.log("Body:", body);
     setEvents(body.events);
   };
   useState(() => {
-    console.log("Fetch Effect triggered");
     fetchEvents();
   }, [date]);
   return (
