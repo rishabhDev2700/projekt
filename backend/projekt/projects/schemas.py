@@ -2,7 +2,7 @@ from typing import List
 from ninja import ModelSchema, Schema
 
 from projekt.accounts.models import Company, User
-from projekt.projects.models import Member, Project, Team
+from projekt.projects.models import Member, Project, Role, Team, Task
 
 
 class CompanySchema(ModelSchema):
@@ -40,11 +40,36 @@ class TeamSchema(Schema):
     project: ProjectOut
 
 
+class RoleSchema(ModelSchema):
+    class Meta:
+        model = Role
+        fields = ("title", "hierarchy", "company")
+
+
 class MemberSchema(Schema):
     team: TeamSchema
     user: UserSchema
+    role: RoleSchema
 
 
 class TeamOut(Schema):
     project: int
     members: List[MemberSchema]
+
+
+class TaskSchema(ModelSchema):
+    class Meta:
+        model = Task
+        fields = (
+            "title",
+            "description",
+            "deadline",
+            "assigned_to",
+            "created_at",
+            "updated_at",
+            "status",
+        )
+
+
+class TaskList(Schema):
+    projects: List[TaskSchema]

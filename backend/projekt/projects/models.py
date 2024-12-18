@@ -35,6 +35,7 @@ class Role(models.Model):
 class Member(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
 
 
 class Task(models.Model):
