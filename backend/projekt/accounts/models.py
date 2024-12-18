@@ -35,13 +35,14 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=100)
+    full_name = models.CharField(max_length=60, default="")
     date_joined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
-    USERNAME_FIELD = "email"
     objects = UserManager()
+    USERNAME_FIELD = "email"
 
     def __str__(self) -> str:
         return str(self.email)
